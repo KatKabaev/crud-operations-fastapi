@@ -5,7 +5,7 @@ from app.routers import user, task
 app = FastAPI()
 
 @app.get('/')
-async def welcome():
+async def welcome() -> dict:
     return {"message": "Welcome to Taskmanager"}
 
 

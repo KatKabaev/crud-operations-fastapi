@@ -14,12 +14,19 @@ router = APIRouter(prefix="/task", tags=['task'])
 
 @router.get('/')
 async def all_tasks(db: Annotated[Session, Depends(get_db)]):
+    """
+    Функция возвращает список всех пользователей из БД.
+    """
+
     tasks = db.scalars(select(Task)).all()
     return tasks
 
 
 @router.get('/task_id')
 async def task_by_id(db: Annotated[Session, Depends(get_db)], task_id: int):
+    """
+    Функция возвращает пользователя из БД по user_id.
+    """
     task = db.scalar(select(Task).where(Task.id == task_id))
     if task is None:
         return HTTPException(

@@ -30,6 +30,10 @@ async def user_by_id(db: Annotated[Session, Depends(get_db)], user_id: int):
 
 @router.get('/user_id/tasks')
 async def tasks_by_user_id(db: Annotated[Session, Depends(get_db)], user_id: int):
+    """
+    Функция возвращает всех Task конкретного User по id.
+    """
+
     tasks = db.scalars(select(Task).where(User.id == user_id)).all()
     if tasks is None:
         return HTTPException(
